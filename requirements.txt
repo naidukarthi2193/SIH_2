@@ -33,7 +33,6 @@ requests==2.24.0
 rsa==4.6 
 setuptools==47.3.1 
 six==1.15.0 
-sqlite==3.32.3
 uritemplate==3.0.1 
 urllib3==1.25.9 
 vc==14.1
