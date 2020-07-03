@@ -19,7 +19,7 @@ def checklogin():
         if request.method == "POST":
             email = str(request.form['email'])
             password = str(request.form['password'])
-            print(str(request.form['role']))
+            
             if str(request.form['role']) == 'student':
                 if student_ref.document(email).get().to_dict():
                     cred = student_ref.document(email).get().to_dict()
@@ -33,7 +33,7 @@ def checklogin():
                 if lecturer_ref.document(email).get().to_dict():
                     cred = lecturer_ref.document(email).get().to_dict()
                     if password==cred['password']:
-                        return  jsonify(lecturer_ref.document(email).get().to_dict())
+                        return  redirect(url_for('listlecturercourses',email=email))
                     else:
                         return render_template("login_error.html")
                 else:
@@ -77,9 +77,24 @@ def liststudentcourses(email):
         if c['code'] in student_courses:
             final_list.append(c)
     cred = student_ref.document(email).get().to_dict()
-    return render_template("student_courses.html" , all_courses = final_list , cred = cred)
+    return render_template("student_course.html" , all_courses = final_list)
 
-
+@app.route('/listlecturercourses/<email>')
+def listlecturercourses(email):
+    all_courses = [doc.to_dict() for doc in courses_ref.stream()]
+    all_students = [doc.to_dict() for doc in student_ref.stream()]
+    final_list = list()
+    for c in all_courses:
+        count=0
+        for stud in all_students:
+            courses = stud['course'].split(",")
+        
+        if c['code'] in courses:
+                count+=1
+        if email == c['email']:
+            final_list.append(c)
+    return render_template("lecturer_course.html" , all_courses = final_list ,count = count )
+    
 
 
 
