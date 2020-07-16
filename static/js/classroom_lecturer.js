@@ -11,8 +11,6 @@ $(document).ready(function(){
     //example of triggering an event on click of a form submit button
     // $('form#emit').submit(function(event) {
   
-    // var i;  
-  
     // for (i = 0; i < 1000; i++) {
     //     // await sleep(500)
     //     socket.emit('sessionid', {data: i});
