@@ -1,0 +1,14 @@
+Friendly Name
+Shardul
+
+Account Sid
+AC04a6d5889c4266e8f1c40b45a1c84f07 
+
+Sid
+SK70a0935c9023c6ee7ca75c7e6a2f6cba
+
+Key Type
+Master
+
+Secret
+bG3mUWaPjECnn1cY568XY3cdh4wGMXAC

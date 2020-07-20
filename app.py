@@ -1,21 +1,42 @@
 import os
-from flask import Flask, request, jsonify , render_template,redirect, url_for
-from firebase_admin import credentials, firestore, initialize_app
+import ssl
 import json
+from dotenv import load_dotenv
 from flask_socketio import SocketIO, emit
+from flask import Flask, request, jsonify , render_template,redirect, url_for, abort
+from firebase_admin import credentials, firestore, initialize_app
+from twilio.jwt.access_token import AccessToken
+from twilio.jwt.access_token.grants import VideoGrant
+
+load_dotenv()
+twilio_account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
+twilio_api_key_sid = os.environ.get('TWILIO_API_KEY_SID')
+twilio_api_key_secret = os.environ.get('TWILIO_API_KEY_SECRET')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
 # Initialize Firestore DB
-cred = credentials.Certificate('./static/prefs-305a5-firebase-adminsdk-7ljrd-d40db11141.json')
+cred = credentials.Certificate('./static/firebase-adminsdk.json')
 default_app = initialize_app(cred)
 db = firestore.client()
 student_ref = db.collection('student')
 lecturer_ref = db.collection('lecturer')
 courses_ref = db.collection('courses')
 templist = ["AS"]
+
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.get_json(force=True).get('username')
+    if not username:
+        abort(401)
+
+    token = AccessToken(twilio_account_sid, twilio_api_key_sid,
+                        twilio_api_key_secret, identity=username)
+    token.add_grant(VideoGrant(room='My Room'))
+
+    return {'token': token.to_jwt().decode()}
 
 @app.route('/checklogin', methods=['GET','POST'])
 def checklogin():
@@ -98,32 +119,52 @@ def classroom(email,code):
     classroom = courses_ref.document(code).get().to_dict()
     # return jsonify(classroom)
     if email==classroom['email']:
-        return render_template("classroom_lecturer.html")
+        return render_template("Broadcast.html")
     else:
-        return render_template("classroom_student.html")
+        return render_template("Viewer.html")
 
-@socketio.on('connect', namespace='/student')
+@socketio.on('connect', namespace='/shardul.doke99')
 def test_connect():
     print("KARTTTHIKO")
     print('Student connected')
 
 
-@socketio.on('sessionid',namespace='/student')
+@socketio.on('sessionid',namespace='/shardul.doke99')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     print('received my event: '+ str(json['data']))
     # templist.append(str(json['data']))
     emit('my response', {'data': json['data']},broadcast=True)
     # test_message()
-    
+
+@socketio.on('connect', namespace='/naidukarthi2193')
+def test_connect():
+    print("KARTTTHIKO")
+    print('Student connected')
+
+
+@socketio.on('sessionid',namespace='/naidukarthi2193')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+    print('received my event: '+ str(json['data']))
+    # templist.append(str(json['data']))
+    emit('my response', {'data': json['data']},broadcast=True)
+
+
+@socketio.on('connect', namespace='/tejasshenoy6')
+def test_connect():
+    print("KARTTTHIKO")
+    print('Student connected')
+
+
+@socketio.on('sessionid',namespace='/tejasshenoy6')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+    print('received my event: '+ str(json['data']))
+    # templist.append(str(json['data']))
+    emit('my response', {'data': json['data']},broadcast=True)
 
 
 @app.route('/')
 def home():
     return render_template("index.html")
-
-
-    
-
 
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
