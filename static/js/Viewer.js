@@ -161,7 +161,20 @@ function extractEmails (text)
 var username = extractEmails(window.location.href);
 console.log(username)
 
-var socket = io.connect('http://' + document.domain + ':' + location.port + '/' + username );
+switch (username) {
+    case 'naidukarthi2193' :
+    case 'shardul.doke99' : 
+    var socket = io.connect('http://' + document.domain + ':' + location.port + '/' + username );
+    break;
+
+    default :
+    var socket = io.connect('http://' + document.domain + ':' + location.port + '/' + 'default' );
+    console.log('Default case');
+    break;
+
+}
+
+
       
             // More API functions here:
             // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image

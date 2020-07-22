@@ -1,6 +1,7 @@
 import os
 import ssl
 import json
+import numpy as np
 from dotenv import load_dotenv
 from flask_socketio import SocketIO, emit
 from flask import Flask, request, jsonify , render_template,redirect, url_for, abort
@@ -8,14 +9,14 @@ from firebase_admin import credentials, firestore, initialize_app
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
 
+arr = np.array([0])
+
+
+# Initialize Twilio API
 load_dotenv()
 twilio_account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
 twilio_api_key_sid = os.environ.get('TWILIO_API_KEY_SID')
 twilio_api_key_secret = os.environ.get('TWILIO_API_KEY_SECRET')
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
 
 # Initialize Firestore DB
 cred = credentials.Certificate('./static/firebase-adminsdk.json')
@@ -26,6 +27,11 @@ lecturer_ref = db.collection('lecturer')
 courses_ref = db.collection('courses')
 templist = ["AS"]
 
+# Initialize Socket
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
+
 @app.route('/login', methods=['POST'])
 def login():
     username = request.get_json(force=True).get('username')
@@ -35,7 +41,6 @@ def login():
     token = AccessToken(twilio_account_sid, twilio_api_key_sid,
                         twilio_api_key_secret, identity=username)
     token.add_grant(VideoGrant(room='My Room'))
-
     return {'token': token.to_jwt().decode()}
 
 @app.route('/checklogin', methods=['GET','POST'])
@@ -132,6 +137,10 @@ def test_connect():
 @socketio.on('sessionid',namespace='/shardul.doke99')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     print('received my event: '+ str(json['data']))
+    global arr
+    x = round(100*float(str(json['data'])))
+    arr = np.append(arr, x)
+    print(arr)
     # templist.append(str(json['data']))
     emit('my response', {'data': json['data']},broadcast=True)
     # test_message()
@@ -149,17 +158,32 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
     emit('my response', {'data': json['data']},broadcast=True)
 
 
-@socketio.on('connect', namespace='/tejasshenoy6')
+@socketio.on('connect', namespace='/default')
 def test_connect():
     print("KARTTTHIKO")
     print('Student connected')
 
 
-@socketio.on('sessionid',namespace='/tejasshenoy6')
+@socketio.on('sessionid',namespace='/default')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     print('received my event: '+ str(json['data']))
     # templist.append(str(json['data']))
     emit('my response', {'data': json['data']},broadcast=True)
+
+
+@socketio.on('disconnect',namespace='/shardul.doke99')
+def handle_disconnect():
+	x = np.array_str(arr)
+	courses_ref.document(u'CS101').update({ u'sharduldoke99': x})
+	print(arr)
+	print('Disconnected')
+
+@socketio.on('disconnect',namespace='/default')
+def handle_disconnect():
+	x = np.array_str(arr)
+	courses_ref.document(u'CS101').update({ u'default': x})
+	print(arr)
+	print('Disconnected')
 
 
 @app.route('/')

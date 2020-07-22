@@ -12,32 +12,6 @@ function addLocalVideo() {
     });
 };
 
-// function connectButtonHandler(event) {
-//     event.preventDefault();
-//     if (!connected) {
-//         var username = 'Broadcaster';
-//         if (!username) {
-//             alert('Enter your name before connecting');
-//             return;
-//         }
-//         button.disabled = true;
-//         button.innerHTML = 'Connecting...';
-//         connect(username).then(() => {
-//             button.innerHTML = 'Leave call';
-//             button.disabled = false;
-//         }).catch(() => {
-//             alert('Connection failed. Is the backend running?');
-//             button.innerHTML = 'Join call';
-//             button.disabled = false;
-//         });
-//     }
-//     else {
-//         disconnect();
-//         button.innerHTML = 'Join call';
-//         connected = false;
-//     }
-// };
-
 function connect(username) {
     var promise = new Promise((resolve, reject) => {
         // get a token from the back end
@@ -71,18 +45,6 @@ function updateParticipantCount() {
 };
 
 function participantConnected(participant) {
-    // var participant_div = document.createElement('div');
-    // participant_div.setAttribute('id', participant.sid);
-    // participant_div.setAttribute('class', 'participant');
-
-    // var tracks_div = document.createElement('div');
-    // participant_div.appendChild(tracks_div);
-
-    // var label_div = document.createElement('div');
-    // label_div.innerHTML = participant.identity;
-    // participant_div.appendChild(label_div);
-
-    // container.appendChild(participant_div);
 
     participant.tracks.forEach(publication => {
         if (publication.isSubscribed)
@@ -119,4 +81,4 @@ function disconnect() {
 addLocalVideo();
 var username = 'Broadcaster';
 connect(username);
-// button.addEventListener('click', connectButtonHandler);
+
