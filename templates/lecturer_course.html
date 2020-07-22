@@ -33,12 +33,15 @@
     
     {% if course['islive'] == "1" %} 
     <p> Status : Live</p>
+    <a href="/classroomlive/{{course['email']}}/{{course['code']}}"><button type="button" class="btn btn-primary col-md-offset-3">Start</button></a>
+
     {% endif %}
     {% if course['islive'] == "0" %} 
     <p> Status : Not Live</p>
-    {% endif %}
-    <a href="/classroom/{{course['email']}}/{{course['code']}}"><button type="button" class="btn btn-primary col-md-offset-3">Primary</button></a>
+    <a href="/classroomreport/{{course['email']}}/{{course['code']}}"><button type="button" class="btn btn-info col-md-offset-3">Report</button></a>
 
+    {% endif %}
+   
   </div>
 </div>
 </div>

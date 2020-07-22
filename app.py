@@ -119,7 +119,7 @@ def listlecturercourses(email):
             final_list.append(c)
     return render_template("lecturer_course.html" , all_courses = final_list  )
     
-@app.route('/classroom/<email>/<code>')
+@app.route('/classroomlive/<email>/<code>')
 def classroom(email,code):
     classroom = courses_ref.document(code).get().to_dict()
     # return jsonify(classroom)
@@ -127,6 +127,11 @@ def classroom(email,code):
         return render_template("Broadcast.html")
     else:
         return render_template("Viewer.html")
+@app.route('/classroomreport/<email>/<code>')
+def reports(email,code):
+    x=courses_ref.document(code).get().to_dict()
+    return render_template("reports.html",x=x,shardul=x['sharduldoke99'],default=x['default'])
+
 
 @socketio.on('connect', namespace='/shardul.doke99')
 def test_connect():
