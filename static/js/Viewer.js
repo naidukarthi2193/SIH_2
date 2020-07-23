@@ -164,11 +164,11 @@ console.log(username)
 switch (username) {
     case 'naidukarthi2193' :
     case 'shardul.doke99' : 
-    var socket = io.connect('https://' + document.domain  + '/' + username );
+    var socket = io.connect('http://' + document.domain  + '/' + username );
     break;
 
     default :
-    var socket = io.connect('https://' + document.domain  + '/' + 'default' );
+    var socket = io.connect('http://' + document.domain  + '/' + 'default' );
     console.log('Default case');
     break;
 
