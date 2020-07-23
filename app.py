@@ -190,7 +190,6 @@ def handle_disconnect():
 	print(arr)
 	print('Disconnected')
 
-
 @app.route('/')
 def home():
     return render_template("index.html")
