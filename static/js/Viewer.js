@@ -180,7 +180,7 @@ switch (username) {
             // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
         // the link to your model provided by Teachable Machine export panel
-        const URL = 'https://sih2309.herokuapp.com/static/my_model/';
+        const URL = 'http://sih2309.azurewebsites.net/static/my_model/';
 
 
         let model, webcam, labelContainer, maxPredictions;
