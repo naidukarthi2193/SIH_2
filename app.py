@@ -130,7 +130,7 @@ def classroom(email,code):
 @app.route('/classroomreport/<email>/<code>')
 def reports(email,code):
     x=courses_ref.document(code).get().to_dict()
-    return render_template("reports.html",x=x,shardul=x['sharduldoke99'],default=x['default'])
+    return render_template("reports.html",x=x)
 
 
 @socketio.on('connect', namespace='/shardul.doke99')

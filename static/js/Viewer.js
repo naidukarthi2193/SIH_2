@@ -164,11 +164,11 @@ console.log(username)
 switch (username) {
     case 'naidukarthi2193' :
     case 'shardul.doke99' : 
-    var socket = io.connect('http://' + document.domain + ':' + location.port + '/' + username );
+    var socket = io.connect('https://' + document.domain  + '/' + username );
     break;
 
     default :
-    var socket = io.connect('http://' + document.domain + ':' + location.port + '/' + 'default' );
+    var socket = io.connect('https://' + document.domain  + '/' + 'default' );
     console.log('Default case');
     break;
 
@@ -180,7 +180,7 @@ switch (username) {
             // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
         // the link to your model provided by Teachable Machine export panel
-        const URL = "http://localhost:8080/static/my_model/";
+        const URL = 'https://sih2309.herokuapp.com/static/my_model/';
 
 
         let model, webcam, labelContainer, maxPredictions;
