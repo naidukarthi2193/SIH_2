@@ -1,0 +1,177 @@
+@font-face {
+	font-family: 'Product Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+  }
+  
+img {
+	
+	width: 100px;
+	height: 100px;
+	padding-left: 100px;
+	padding-top: 30px;
+  }
+html{
+	scroll-behavior: initial;
+	background-image: url("https://s3.pixers.pics/pixers/700/FO/61/70/23/74/700_FO61702374_b335dfa84806c6fde21ead5bc3326570.jpg");
+	background-repeat: no-repeat; 
+	background-size: cover, cover;
+	background-position: center;
+	position: relative;
+}
+body{
+
+background-color: #ffffff;
+
+}
+
+
+
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #f7f6f2;
+  }
+
+.container1{
+	background-image: url("https://img.lovepik.com//back_pic/05/61/36/115b4890e8eab7f.jpg_wh300.jpg");
+	position: fixed; 
+	top: 0; 
+	left: 0; 
+  
+	/* Preserve aspet ratio */
+	/*min-width: 100%;
+	min-height: 100%;*/
+	background-repeat: no-repeat;
+	/*background-size: 100%;*/
+	background-size: cover, cover;
+	background-position: center;
+	position: relative;
+	width: 100%;
+	height: 150px;
+
+}
+
+.site_title{
+
+	position: absolute;
+	top: 150%
+	left: 35%;
+	transform: translate(150%,150%);
+	font-family: 'Product Sans';
+	z-index: 2;
+}
+.site_title h1{
+	font-size: 60px;
+	color: #ab9e9e;
+	text-align: center;
+	margin: 0;
+}
+.site_title p{
+	font-size: 20px;
+	text-align: center;
+	margin: 0;
+	letter-spacing: 6px;
+	margin-top: 10px;
+	color: #ab9e9e;
+	font-family:  "Product Sans";
+}
+
+
+
+.column {
+	float: left;
+	width: 33%;
+	padding: 0 10px;
+	text-align: center; 
+	font-family: Georgia, serif;
+  }
+
+  
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #84b3b8;
+}
+
+li {
+  float: right;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #133e42;
+}
+
+  
+  .row {margin: 0 -5px;}
+  
+  .row:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
+  @media screen and (max-width: 600px) {
+	.column {
+	  width: 100%;
+	  display: block;
+	  margin-bottom: 20px;
+
+	}
+  }
+
+.image{
+	background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdzGnXuXmrIAtHR2Ed2ej87GoOh1Om0f9HEA&usqp=CAU");
+	border-radius: 5px;
+	height: 150px;
+	width: 350px;
+	background-size: cover, cover;
+	position: relative;
+    margin:0px;
+
+
+}
+
+.card {
+  margin-top: 50px;
+  margin-left: 150px;
+  box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.8);
+  transition: 0.3s;
+  width: 350px;
+  border-radius: 5px;
+  float: left;
+  background: ;
+}
+
+.card:hover {
+  box-shadow: 0px 8px 16px 0 rgba(0,0,0,0.9);
+}
+.button{
+	box-shadow: 0px 0px 0px 0px #007144;
+
+
+}
+
+.container {
+  padding: 2px 10px;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #52616b; 
+  padding:30px;
+  border-radius: 5px;
+
+}
+
