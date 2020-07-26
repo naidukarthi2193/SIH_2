@@ -30,7 +30,7 @@ templist = ["AS"]
 # Initialize Socket
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins='http://192.168.0.106:8080')
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -128,6 +128,11 @@ def classroom(email,code):
     else:
         return render_template("Viewer.html")
 
+@app.route('/classroom/<email>/<code>/report')
+def showReport(email,code):
+    classroom = courses_ref.document(code).get().to_dict()
+    return render_template("Report.html", classroom = classroom)
+
 @socketio.on('connect', namespace='/shardul.doke99')
 def test_connect():
     print("KARTTTHIKO")
@@ -192,4 +197,4 @@ def home():
 
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
-    socketio.run(app,debug=True, host='0.0.0.0', port=port)
+    socketio.run(app,debug=True, host='192.168.0.106', port=port)

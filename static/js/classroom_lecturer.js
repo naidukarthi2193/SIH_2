@@ -109,7 +109,13 @@ const ctx1 = document.getElementById('myChart1').getContext('2d');
       },
   
       // Configuration options go here
-      options: {}
+      options: { 
+        scales: { 
+            xAxes : [{
+              display:false
+            }]
+        }
+    }
   });
 
 
@@ -132,7 +138,13 @@ const ctx2 = document.getElementById('myChart2').getContext('2d');
       },
   
       // Configuration options go here
-      options: {}
+      options: { 
+        scales: { 
+            xAxes : [{
+              display:false
+            }]
+        }
+    }
   });
 
 
@@ -155,7 +167,13 @@ const ctx3 = document.getElementById('myChart3').getContext('2d');
       },
   
       // Configuration options go here
-      options: {}
+      options: { 
+          scales: { 
+              xAxes : [{
+                display:false
+              }]
+          }
+      }
   });
 
 
