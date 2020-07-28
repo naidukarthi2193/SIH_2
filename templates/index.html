@@ -146,13 +146,13 @@ body {
         <div class="form">
 
           <form class="register-form"  action = "{{ url_for('adduser') }}" method = "POST">
-            <input type="text" placeholder="name" name="add_name" />
-            <input type="text" placeholder="email address" name="add_email" />
-            <input type="number"  placeholder="contact" name="add_contact" >
+            <input type="text" placeholder="Name" name="add_name" />
+            <input type="text" placeholder="Email Address" name="add_email" />
+            <input type="number"  placeholder="Contact" name="add_contact" >
             <div class="form-container">
               <span>Roles:</span>
               <div class="form-grp">
-                <input type="radio" name="add_role" id="student" value="student">
+                <input type="radio" name="add_role" id="student" value="student" checked>
                 <label for="student" class="role">Student</label>
               </div>
               <div class="form-grp">
@@ -161,8 +161,8 @@ body {
       
               </div>
             </div>
-            <input type="password" placeholder="password" name="add_password" />
-            <input type="password" placeholder="confirm password" />
+            <input type="password" placeholder="Password" name="add_password" />
+            <input type="password" placeholder="Confirm Password" />
       
             <button>create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
@@ -171,16 +171,16 @@ body {
 
 
           <form class="login-form"  action = "{{ url_for('checklogin') }}" method = "POST">
-            <input type="text" name="email" placeholder="email"/>
-            <input type="password" name="password" placeholder="password"/>
+            <input type="text" name="email" placeholder="Email"/>
+            <input type="password" name="password" placeholder="Password"/>
 
             <div class="form-container">
               <div class="form-grp">
-                <input type="radio" name="role" id="student" value="student">
+                <input type="radio" name="role" id="student" value="Student" checked>
                 <label for="student" class="role">Student</label>
               </div>
               <div class="form-grp">
-                <input type="radio" name="role" id="lecturer" value="lecturer">
+                <input type="radio" name="role" id="lecturer" value="Lecturer">
                 <label for="lecturer" class="role">Lecturer</label>
       
               </div>

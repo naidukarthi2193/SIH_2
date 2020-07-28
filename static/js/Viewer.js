@@ -4,15 +4,8 @@ var room;
 
 var username = extractEmails(window.location.href);
 console.log(username)
-switch (username) {
-    case 'naidukarthi2193' :
-    case 'shardul.doke99' : 
-        var socket = io.connect('http://' + document.domain + ':' + location.port + '/' + username );
-        break;
-    default :
-        var socket = io.connect('http://' + document.domain + ':' + location.port + '/' + 'default' );
-        break;
-}
+var socket = io.connect('http://' + document.domain + ':' + location.port );
+
 
 function extractEmails (text)
 {
@@ -102,7 +95,7 @@ var arr = []
 
 // A $( document ).ready() block.
 $(document).ready(function() {
-    
+    socket.emit('join',{"channel": "CS101", "username" :username});
     init();
     connect(username);
 });
@@ -150,8 +143,9 @@ async function predict() {
     if(arr.length > 50){
         var sum = arr.reduce((previous, current) => current += previous);
         let avg = sum / arr.length;
-        console.log(Math.round(100*avg))
-        socket.emit('sessionid', {data:  JSON.stringify(avg)});
+        avg = Math.round(100*avg);
+        console.log(avg)
+        socket.emit('sessionid', {data: {'uid' : username , 'value' : JSON.stringify(avg) } });
         arr = [];
     }
     for (let i = 0; i < maxPredictions; i++) {
