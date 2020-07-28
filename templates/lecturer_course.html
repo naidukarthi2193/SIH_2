@@ -37,10 +37,9 @@
     {% endif %}
     {% if course['islive'] == "0" %} 
     <p> Status : Not Live</p>
-    <a href="/classroomreport/{{course['email']}}/{{course['code']}}"><button type="button" class="btn btn-info col-md-offset-3">Report</button></a>
-
     {% endif %}
-   
+    <a href="/classroom/{{course['email']}}/{{course['code']}}"><button type="button" class="btn btn-primary col-md-offset-3">Primary</button></a>
+
   </div>
 </div>
 </div>

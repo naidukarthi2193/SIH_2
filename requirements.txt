@@ -23,7 +23,6 @@ google-resumable-media==0.5.1
 googleapis-common-protos==1.52.0
 greenlet==0.4.16
 grpcio==1.30.0
-gunicorn==20.0.4
 httplib2==0.18.1
 idna==2.10
 itsdangerous==1.1.0
@@ -50,5 +49,5 @@ urllib3==1.25.9
 Werkzeug==1.0.1
 zope.event==4.4
 zope.interface==5.1.0
-numpy==1.19.1
+numpy==1.18.1
 redis==3.5.3

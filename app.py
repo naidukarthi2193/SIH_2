@@ -131,7 +131,7 @@ def listlecturercourses(email):
             final_list.append(c)
     return render_template("lecturer_course.html" , all_courses = final_list  )
     
-@app.route('/classroomlive/<email>/<code>')
+@app.route('/classroom/<email>/<code>')
 def classroom(email,code):
     classroom = courses_ref.document(code).get().to_dict()
     # return jsonify(classroom)
@@ -139,11 +139,6 @@ def classroom(email,code):
         return render_template("Broadcast.html")
     else:
         return render_template("Viewer.html")
-@app.route('/classroomreport/<email>/<code>')
-def reports(email,code):
-    x=courses_ref.document(code).get().to_dict()
-    return render_template("reports.html",x=x)
-
 
 @app.route('/classroom/<email>/<code>/report')
 def showReport(email,code):
@@ -226,6 +221,7 @@ def handle_disconnect():
     courses_ref.document(u'CS101').update(temp_dict)
     print(arr)
     print('Disconnected')
+
 
 @app.route('/')
 def home():

@@ -19,13 +19,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script type="text/javascript">
-         var socket = io.connect('http://' + document.domain  + '/student');
+         var socket = io.connect('http://' + document.domain + ':' + location.port + '/student');
       
             // More API functions here:
             // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
         // the link to your model provided by Teachable Machine export panel
-        const URL = "https://sih2309.azurewebsites.net//static/my_model/";
+        const URL = "http://localhost:8080/static/my_model/";
 
 
         let model, webcam, labelContainer, maxPredictions;

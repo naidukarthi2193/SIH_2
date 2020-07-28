@@ -1,9 +1,9 @@
 
 // Client Side Javascript to receive numbers.
 $(document).ready(function(){
-    var socket1 = io.connect('https://' + document.domain + '/shardul.doke99');
-    var socket2 = io.connect('https://' + document.domain  + '/naidukarthi2193');
-    var socket3 = io.connect('https://' + document.domain  + '/default');
+    var socket1 = io.connect('http://' + document.domain + ':' + location.port + '/shardul.doke99');
+    var socket2 = io.connect('http://' + document.domain + ':' + location.port + '/naidukarthi2193');
+    var socket3 = io.connect('http://' + document.domain + ':' + location.port + '/default');
 
     document.getElementById('myChart1').style.visibility = 'hidden';
     document.getElementById('myChart2').style.visibility = 'hidden';
@@ -27,9 +27,9 @@ $(document).ready(function(){
     // });
   });
   document.addEventListener('DOMContentLoaded', function(){
-    var socket1 = io.connect('https://' + document.domain  + '/shardul.doke99');
-    var socket2 = io.connect('https://' + document.domain  + '/naidukarthi2193');
-    var socket3 = io.connect('https://' + document.domain  + '/default');
+    var socket1 = io.connect('http://' + document.domain + ':' + location.port + '/shardul.doke99');
+    var socket2 = io.connect('http://' + document.domain + ':' + location.port + '/naidukarthi2193');
+    var socket3 = io.connect('http://' + document.domain + ':' + location.port + '/default');
 
     
     
