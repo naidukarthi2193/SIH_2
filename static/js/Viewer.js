@@ -4,7 +4,13 @@ var room;
 
 var username = extractEmails(window.location.href);
 console.log(username)
-var socket = io.connect('http://' + document.domain + ':' + location.port );
+if (window.location.protocol == "https:") {
+    var ws_scheme = "wss://";
+  } else {
+    var ws_scheme = "ws://"
+  };
+  
+var socket = io.connect(ws_scheme + location.host );
 
 
 function extractEmails (text)
@@ -89,7 +95,7 @@ function disconnect() {
 };
 
 
-const URL = "http://192.168.0.106:8080/static/my_model/";
+const URL = "ws://sih2309.herokuapp.com/static/my_model/";
 let model, webcam, labelContainer, maxPredictions;
 var arr = []
 

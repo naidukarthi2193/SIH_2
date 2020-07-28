@@ -19,13 +19,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script type="text/javascript">
-         var socket = io.connect('http://' + document.domain + ':' + location.port + '/student');
+         if (window.location.protocol == "https:") {
+            var ws_scheme = "wss://";
+        } else {
+            var ws_scheme = "ws://"
+        };
+        
+        var socket = io.connect(ws_scheme + location.host );
       
             // More API functions here:
             // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
         // the link to your model provided by Teachable Machine export panel
-        const URL = "http://localhost:8080/static/my_model/";
+        const URL = "ws://sih2309.herokuapp.com/static/my_model/";
 
 
         let model, webcam, labelContainer, maxPredictions;

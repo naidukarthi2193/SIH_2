@@ -229,4 +229,4 @@ def home():
 
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
-    socketio.run(app,debug=True, host='192.168.0.106', port=port)
+    socketio.run(app,debug=True, port=port)
