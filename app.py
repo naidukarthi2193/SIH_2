@@ -10,7 +10,7 @@ from firebase_admin import credentials, firestore, initialize_app
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
 import redis
-rC = redis.StrictRedis(host='localhost',port=6379, db=0,encoding="utf-8", decode_responses=True)
+rC = redis.from_url(os.environ['REDISCLOUD_URL'])
 rC.flushall()
 def clear_punctuation(s):
     clear_string = ""
