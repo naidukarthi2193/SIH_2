@@ -2,14 +2,26 @@ import os
 import ssl
 import json
 import numpy as np
+import string
 from dotenv import load_dotenv
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit , join_room
 from flask import Flask, request, jsonify , render_template,redirect, url_for, abort
 from firebase_admin import credentials, firestore, initialize_app
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
+import redis
+rC = redis.StrictRedis(host='localhost',port=6379, db=0,encoding="utf-8", decode_responses=True)
+rC.flushall()
+def clear_punctuation(s):
+    clear_string = ""
+    for symbol in s:
+        if symbol not in string.punctuation:
+            clear_string += symbol
+    return clear_string
+
 
 arr = np.array([0])
+# total_data = dict()
 
 
 # Initialize Twilio API
@@ -30,7 +42,7 @@ templist = ["AS"]
 # Initialize Socket
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins='http://192.168.0.106:8080')
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -133,62 +145,87 @@ def reports(email,code):
     return render_template("reports.html",x=x)
 
 
-@socketio.on('connect', namespace='/shardul.doke99')
-def test_connect():
-    print("KARTTTHIKO")
-    print('Student connected')
+@app.route('/classroom/<email>/<code>/report')
+def showReport(email,code):
+    tabular_data = list()
+    total_duration=0
+    total_average = list()
+
+    classroom = courses_ref.document(code).get().to_dict()
+    all_students = [doc.to_dict() for doc in student_ref.stream()]
+    # print(all_students)
+
+    for x in classroom['users']:
+        tab_val = dict()
+        for stud in all_students:
+            if x == clear_punctuation(stud["email"].split("@")[0]):
+                # print("COMPARE {} {}".format(x, clear_punctuation(stud["email"].split("@")[0])))
+                tab_val["name"] = stud["name"]
+                # tab_val["number"]= stud["number"]
+                tab_val["email"]= stud["email"]
+                # print(classroom[x])
+                summer = [int(y) for y in classroom[x]]
+                tab_val["attention"] = summer
+                v = sum(summer)// len(classroom[x]) 
+                total_average.append(v)
+                tab_val["avg"] = v
+                
+                # print(x,len(classroom[x]))
+                if len(classroom[x])>total_duration:
+                    total_duration = len(classroom)
+                
+                break
+        tabular_data.append(tab_val)
+    tot_avg = sum(total_average) //len(total_average)
+    print("TABLE DATA",tabular_data)
+    print("NO OF PARTICIPANTS",len(classroom['users']))
+    print("DURATION",total_duration)
+    print("TOTAL AVERAGE",tot_avg)
+    print("CODE",code)
+    print("RANDI KA NMAM",classroom["email"])
+
+    # print(classroom)
+    
+    return render_template("report1.html",tabular_data=tabular_data,nop=len(classroom["users"]),duration=total_duration,tot_avg=tot_avg,code=code,email=email)
 
 
-@socketio.on('sessionid',namespace='/shardul.doke99')
+@socketio.on('join')
+def on_join(data):
+    username = data['username']
+    channel = data['channel']
+    join_room(channel)
+    rC.delete(username)
+    print(channel,username)
+    if len(rC.keys())>0:
+        zers = ["0"] * rC.llen(rC.keys()[0])
+        rC.rpush(username,*zers)
+    rC.rpush("users",username)
+    print("ROMMMMMMMMMM JOINED")
+
+
+@socketio.on('sessionid')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     print('received my event: '+ str(json['data']))
-    global arr
-    x = round(100*float(str(json['data'])))
-    arr = np.append(arr, x)
+    data = json["data"]
+    rC.rpush(data["uid"],data["value"])
+
+    # templist.append(str(json['data']))
+    # emit('my response', {'data': json['data']},broadcast=True)
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    # channel = data['channel']
+    temp_dict = dict()
+    print(rC.lrange("users",0,-1))
+    for i in rC.lrange("users",0,-1):
+        temp_dict[clear_punctuation(i)] = rC.lrange(i,0,-1)
+        print(rC.lrange(i,0,-1))
+        print(rC.llen(i))
+    x = np.array_str(arr)
+    temp_dict['users'] = rC.lrange("users",0,-1)
+    courses_ref.document(u'CS101').update(temp_dict)
     print(arr)
-    # templist.append(str(json['data']))
-    emit('my response', {'data': json['data']},broadcast=True)
-    # test_message()
-
-@socketio.on('connect', namespace='/naidukarthi2193')
-def test_connect():
-    print("KARTTTHIKO")
-    print('Student connected')
-
-
-@socketio.on('sessionid',namespace='/naidukarthi2193')
-def handle_my_custom_event(json, methods=['GET', 'POST']):
-    print('received my event: '+ str(json['data']))
-    # templist.append(str(json['data']))
-    emit('my response', {'data': json['data']},broadcast=True)
-
-
-@socketio.on('connect', namespace='/default')
-def test_connect():
-    print("KARTTTHIKO")
-    print('Student connected')
-
-
-@socketio.on('sessionid',namespace='/default')
-def handle_my_custom_event(json, methods=['GET', 'POST']):
-    print('received my event: '+ str(json['data']))
-    # templist.append(str(json['data']))
-    emit('my response', {'data': json['data']},broadcast=True)
-
-
-@socketio.on('disconnect',namespace='/shardul.doke99')
-def handle_disconnect():
-	x = np.array_str(arr)
-	courses_ref.document(u'CS101').update({ u'sharduldoke99': x})
-	print(arr)
-	print('Disconnected')
-
-@socketio.on('disconnect',namespace='/default')
-def handle_disconnect():
-	x = np.array_str(arr)
-	courses_ref.document(u'CS101').update({ u'default': x})
-	print(arr)
-	print('Disconnected')
+    print('Disconnected')
 
 @app.route('/')
 def home():
@@ -196,4 +233,4 @@ def home():
 
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
-    socketio.run(app,debug=True, host='0.0.0.0', port=port)
+    socketio.run(app,debug=True, host='192.168.0.106', port=port)
