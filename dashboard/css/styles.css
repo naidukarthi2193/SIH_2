@@ -30,6 +30,14 @@ body {
   text-transform: uppercase;
 }
 
+.header__report-code {
+  animation: moveInLeft 1s 0.2s ease-out backwards;
+}
+
+.header__email {
+  animation: moveInRight 1s 0.2s ease-out backwards;
+}
+
 .cards {
   width: 100%;
   display: flex;
@@ -54,6 +62,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  animation: moveInBottom 1s 0.2s ease-out backwards;
 }
 
 .cards__total-duration {
@@ -62,6 +71,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  animation: moveInBottom 1s 0.4s ease-out backwards;
 }
 
 .cards__average {
@@ -70,6 +80,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  animation: moveInBottom 1s 0.6s ease-out backwards;
 }
 
 .cards__longest {
@@ -78,6 +89,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  animation: moveInBottom 1s 0.7s ease-out backwards;
 }
 
 .cards__participants:hover,
@@ -114,6 +126,7 @@ body {
     inset -5px -5px 10px rgba(255, 255, 255, 0.08),
     5px 5px 23px rgba(0, 0, 0, 0.4);
   transition: all 0.2s ease-out;
+  animation: moveInBottom 1s 1s ease-out backwards;
 }
 
 .chart:hover {
@@ -131,6 +144,7 @@ body {
 
 table {
   width: 100%;
+  animation: moveInTop 1s 1s ease-out backwards;
 }
 
 table,
@@ -192,4 +206,60 @@ tbody {
   font-weight: 600;
   margin: 3% auto;
   letter-spacing: 1rem;
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  80% {
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes moveInTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  80% {
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  80% {
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  80% {
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
