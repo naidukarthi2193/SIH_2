@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Thirumalainambi</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+
+  <div class="header">
+    <span class="header__report-code">Report - 98231</span>
+    <span class="header__email">thirumalainambi1523@gmail.com</span>
+  </div>
+
+  <div class="cards">
+
+    <div class="cards__general cards__participants">
+      <span class="cards__title">No. of Participants</span>
+      <span class="cards__value">45231</span>
+    </div>
+
+    <div class="cards__general  cards__total-duration">
+      <span class="cards__title">Total Duration</span>
+      <span class="cards__value">85379</span>
+    </div>
+
+    <div class="cards__general cards__average">
+      <span class="cards__title">Average Attention</span>
+      <span class="cards__value">123548</span>
+    </div>
+
+    <div class="cards__general cards__longest">
+      <span class="cards__title">Longest Attention Span</span>
+      <span class="cards__value">97713</span>
+    </div>
+
+  </div>
+
+  <div class="chart">
+    <canvas id="myChart" class="chart--container"></canvas>
+  </div>
+
+  <div class="user">
+    <table id="user_table">
+      <caption class="user__caption">User Table</caption>
+      <thead>
+        <tr class="user__row">
+          <th class="user__head">#</th>
+          <th class="user__head">First Name</th>
+          <th class="user__head">Phone Number</th>
+          <th class="user__head">Start Time</th>
+          <th class="user__head">End Time</th>
+          <th class="user__head">Average Attention</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="user__row">
+          <th class="user__data">1</th>
+          <td class="user__data">Karthikraj</td>
+          <td class="user__data">9773092096</td>
+          <td class="user__data">1.00</td>
+          <td class="user__data">2.00</td>
+          <td class="user__data">1</td>
+        </tr>
+        <tr class="user__row">
+          <th class="user__data">2</th>
+          <td class="user__data">Thirumalainambi</td>
+          <td class="user__data">9773092096</td>
+          <td class="user__data">12.00</td>
+          <td class="user__data">1.00</td>
+          <td class="user__data">1</td>
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script src="./js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,500;0,600;1,200;1,300;1,600&family=Oswald:wght@400;500;600;700&display=swap");
+/* font-family: 'Lora', serif;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Oswald', sans-serif; */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 63%;
+}
+
+body {
+  background-color: #1e1e1e;
+  box-sizing: border-box;
+}
+
+.header {
+  margin: 2% auto;
+  width: 85vw;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  font-size: 4rem;
+  font-family: "Oswald";
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+}
+
+.cards {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.cards__general {
+  /* background-color: red; */
+  color: white;
+  width: 35rem;
+  height: 20rem;
+  padding: 5rem 2rem;
+  margin: 2% 0;
+  border-radius: 1rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.cards__participants {
+  background: linear-gradient(299.83deg, #ef3054 -7.83%, #8c1fe1 106.42%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cards__total-duration {
+  background: linear-gradient(52deg, #4587ea -18.02%, #04f8ae 110.65%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cards__average {
+  background: linear-gradient(10.01deg, #d1de37 0.74%, #da527b 92.49%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cards__longest {
+  background: linear-gradient(210.76deg, #6f6cea 2%, #6cff9e 97.86%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cards__participants:hover,
+.cards__total-duration:hover,
+.cards__average:hover,
+.cards__longest:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.cards__title {
+  font-size: 3rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  padding: 0.7rem;
+  text-align: center;
+  display: block;
+}
+
+.cards__value {
+  font-size: 5rem;
+  font-family: "Lora", serif;
+  padding: 2rem 0;
+  display: block;
+}
+
+.chart {
+  cursor: pointer;
+  margin: 3% auto;
+  width: 75vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5rem 10rem;
+  border-radius: 1rem;
+  box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 0.08),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.08),
+    5px 5px 23px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease-out;
+}
+
+.chart:hover {
+  transform: translateY(-5px);
+  box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 0.08),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.08),
+    5px 5px 33px rgba(0, 0, 0, 0.7);
+}
+
+.user {
+  width: 80vw;
+  margin: 5% auto;
+  /* background-color: #fff; */
+}
+
+table {
+  width: 100%;
+}
+
+table,
+tr,
+td,
+th,
+thead,
+tbody {
+  color: white;
+  border: 1px solid rgba(122, 122, 122, 0.3);
+  border-collapse: collapse;
+  transition: all 0.3s ease-in-out;
+  background-color: rgba(36, 34, 34, 0.5);
+}
+
+.user__row {
+  width: 100%;
+  display: block;
+  display: grid;
+  grid-template-columns: repeat(6, 25rem);
+}
+
+.user__head {
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  font-size: 2.5rem;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+}
+
+.user__head,
+.user__data {
+  padding: 1rem 4rem;
+  flex: 1;
+}
+
+.user__data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.08rem;
+}
+
+.user__row:hover {
+  background-color: rgba(139, 139, 139, 0.3);
+}
+
+.user__caption {
+  text-transform: uppercase;
+  font-size: 5rem;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  margin: 3% auto;
+  letter-spacing: 1rem;
+}
