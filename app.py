@@ -10,7 +10,7 @@ from firebase_admin import credentials, firestore, initialize_app
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
 import redis
-rC = redis.StrictRedis(host='localhost',port=6379, db=0,encoding="utf-8", decode_responses=True)
+rC = redis.StrictRedis(host='sih2309.redis.cache.windows.net',password="sXcTXQ01Bd9DxrMzApTuCH1vV8PcaAnkD8GaQYlLFhw=" port=6379, db=0,encoding="utf-8", decode_responses=True, ssl=False)
 rC.flushall()
 def clear_punctuation(s):
     clear_string = ""
@@ -42,7 +42,7 @@ templist = ["AS"]
 # Initialize Socket
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app, cors_allowed_origins='http://192.168.0.7:8080')
+socketio = SocketIO(app, cors_allowed_origins='https://sih2309.azurewebsites.net')
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -245,6 +245,5 @@ def handle_disconnect():
 def home():
     return render_template("index.html")
 
-port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
-    socketio.run(app,debug=True, host='192.168.0.7', port=port)
+    socketio.run(app,debug=True, host='https://sih2309.azurewebsites.net')

@@ -88,8 +88,8 @@ connect(username);
 
 
 document.addEventListener('DOMContentLoaded', function(){
-var socket = io.connect('http://' + document.domain + ':' + location.port );
-var socket2 = io.connect('http://' + document.domain + ':' + location.port +"/timestamp")
+var socket = io.connect('https://' + document.domain + ':' + location.port );
+// var socket2 = io.connect('http://' + document.domain + ':' + location.port +"/timestamp")
 let container1 = document.getElementById("container1");
 let globalUser = [];
 

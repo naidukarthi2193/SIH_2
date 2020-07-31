@@ -6,7 +6,7 @@ var room;
 
 var username = extractEmails(window.location.href);
 console.log(username)
-var socket = io.connect('http://' + document.domain + ':' + location.port );
+var socket = io.connect('https://' + document.domain + ':' + location.port );
 
 
 function extractEmails (text)
@@ -91,7 +91,7 @@ function disconnect() {
 };
 
 
-const URL = "http://192.168.0.7:8080/static/my_model/";
+const URL = "https://sih2309.azurewebsites.net/static/my_model/";
 let model_video, webcam_video, labelContainer_video, maxPredictions_video;
 var arr_video = []
 
