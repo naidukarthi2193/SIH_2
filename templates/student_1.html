@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Student</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: black;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 70%;
+  height: 600px;
+}*/
+
+.column1 {
+  float: right;
+  width: 30%;
+  height: 300px;
+}
+
+.videoElement1 {
+    margin-top: 5px;
+    width: 350px;
+    height: 200px;
+    background-color: #666;
+}
+
+  .videoElement {
+    margin-top: 5px;
+    width: 1050px;
+    height: 590px;
+    background-color: #666;
+  }
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.footer {
+  background-color: black;
+  padding: 30px;
+  text-align: center;
+}
+
+button {
+  padding : 30px;
+  border-radius: 30px;
+  background-color: red;
+  outline: none;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width:600px) {
+  .column {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="row">
+  <div class="column">
+   
+    <video autoplay="true" class="videoElement"></video>
+  </div>
+ 
+  <div class="column1">
+
+    <video autoplay="true" class="videoElement1"></video>
+  </div>
+</div>
+
+<div class="footer">
+<button type="button" id="btn" onclick="myFunction()"></button>
+</div>
+<script type="text/javascript" src="student.js"></script>
+
+</body>
+</html>

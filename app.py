@@ -10,7 +10,7 @@ from firebase_admin import credentials, firestore, initialize_app
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
 import redis
-rC = redis.from_url(os.environ['REDISCLOUD_URL'])
+rC = redis.StrictRedis(host='localhost',port=6379, db=0,encoding="utf-8", decode_responses=True)
 rC.flushall()
 def clear_punctuation(s):
     clear_string = ""
@@ -42,7 +42,7 @@ templist = ["AS"]
 # Initialize Socket
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app, cors_allowed_origins='http://192.168.0.106:8080')
+socketio = SocketIO(app, cors_allowed_origins='http://192.168.0.7:8080')
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -144,6 +144,9 @@ def classroom(email,code):
 def showReport(email,code):
     tabular_data = list()
     total_duration=0
+    mini =0
+    maxi_name=""
+
     total_average = list()
 
     classroom = courses_ref.document(code).get().to_dict()
@@ -164,7 +167,10 @@ def showReport(email,code):
                 v = sum(summer)// len(classroom[x]) 
                 total_average.append(v)
                 tab_val["avg"] = v
-                
+                if v>mini:
+                    print(stud["name"])
+                    maxi_name = stud["name"]
+                    mini=v
                 # print(x,len(classroom[x]))
                 if len(classroom[x])>total_duration:
                     total_duration = len(classroom)
@@ -172,16 +178,28 @@ def showReport(email,code):
                 break
         tabular_data.append(tab_val)
     tot_avg = sum(total_average) //len(total_average)
+
     print("TABLE DATA",tabular_data)
     print("NO OF PARTICIPANTS",len(classroom['users']))
     print("DURATION",total_duration)
     print("TOTAL AVERAGE",tot_avg)
     print("CODE",code)
+    print("MMMMMMMMMMMMMADDDDDDDDDDDDRRRRRRRRRRRRRRRRRRRRRRRRR  {}".format(maxi_name))
+    print("ADITYA KA BHAI",maxi_name)
     print("RANDI KA NMAM",classroom["email"])
 
     # print(classroom)
     
-    return render_template("report1.html",tabular_data=tabular_data,nop=len(classroom["users"]),duration=total_duration,tot_avg=tot_avg,code=code,email=email)
+    return render_template("report2.html",maxi_name=maxi_name,tabular_data=tabular_data,nop=len(classroom["users"]),duration=total_duration,tot_avg=tot_avg,code=code,email=email)
+
+
+
+
+
+# @app.route('/audio')???YE UDHA DIYA THA NA?
+# def audio():
+#     return render_template("3.html")
+
 
 
 @socketio.on('join')
@@ -205,7 +223,7 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
     rC.rpush(data["uid"],data["value"])
 
     # templist.append(str(json['data']))
-    # emit('my response', {'data': json['data']},broadcast=True)
+    emit('my response', {'data': json['data']},broadcast=True)
 
 @socketio.on('disconnect')
 def handle_disconnect():
@@ -229,4 +247,4 @@ def home():
 
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
-    socketio.run(app,debug=True, port=port)
+    socketio.run(app,debug=True, host='192.168.0.7', port=port)
