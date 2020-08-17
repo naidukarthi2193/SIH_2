@@ -179,14 +179,6 @@ def showReport(email,code):
         tabular_data.append(tab_val)
     tot_avg = sum(total_average) //len(total_average)
 
-    print("TABLE DATA",tabular_data)
-    print("NO OF PARTICIPANTS",len(classroom['users']))
-    print("DURATION",total_duration)
-    print("TOTAL AVERAGE",tot_avg)
-    print("CODE",code)
-    print("MMMMMMMMMMMMMADDDDDDDDDDDDRRRRRRRRRRRRRRRRRRRRRRRRR  {}".format(maxi_name))
-    print("ADITYA KA BHAI",maxi_name)
-    print("RANDI KA NMAM",classroom["email"])
 
     # print(classroom)
     
